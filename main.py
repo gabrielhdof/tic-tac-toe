@@ -30,13 +30,16 @@ class Board:
                             self.turns += 1
                             x_turn = False
                             self.game_state = 'Oturn'
+                            move_sound.play()
                             return x_turn
                         else:
                             self.grid[x][y] = 'O'
                             self.turns += 1
                             x_turn = True
                             self.game_state = 'Xturn'
+                            move_sound.play()
                             return x_turn
+                
         return x_turn
                             
     def displayMoves(self):
@@ -56,9 +59,11 @@ class Board:
             self.text_surf = main_font.render("X VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
             self.text_rect = self.text_surf.get_rect(center = (400, 50))
             screen.blit(self.text_surf, self.text_rect)
+            
         elif self.game_state == 'O':
             self.text_surf = main_font.render("O VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
             self.text_rect = self.text_surf.get_rect(center = (400, 50))
+            
             screen.blit(self.text_surf, self.text_rect)
         for i in range(9):
             x = i // 3
@@ -129,11 +134,19 @@ main_font = pygame.font.Font(r'font\Pixeltype.ttf', 50)
 bg_color = '#fbf7d1'
 line_color = '#a8275d'
 
-#rects for grid
-game_active = True
+#sounds
+move_sound = pygame.mixer.Sound(r"sounds\moveSound.wav")
+bg_music = pygame.mixer.Sound(r'sounds\bgMusic.mp3')
+victory_sound = pygame.mixer.Sound(r'sounds\victory.wav')
+bg_music.set_volume(0.3)
+victory_sound.set_volume(0.5)
+bg_music.play(-1)
+
 
 #game logic
+game_active = True
 x_turn = True
+
 
 while True:
     for event in pygame.event.get():
@@ -161,6 +174,7 @@ while True:
         vict = board.checkWin()
         if vict:
             print(vict)
+            victory_sound.play()
             game_active = False
     else:
         board.displayMoves()
