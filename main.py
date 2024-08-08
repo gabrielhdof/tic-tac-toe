@@ -43,28 +43,48 @@ class Board:
         return x_turn
                             
     def displayMoves(self):
-        if self.game_state == 'Xturn':
-            self.text_surf = main_font.render("Vez do jogador X", False, '#031c29')
-            self.text_rect = self.text_surf.get_rect(center = (400, 50))
-            screen.blit(self.text_surf, self.text_rect)
-        elif self.game_state == 'Oturn':
-            self.text_surf = main_font.render("Vez do jogador O", False, '#031c29')
-            self.text_rect = self.text_surf.get_rect(center = (400, 50))
-            screen.blit(self.text_surf, self.text_rect)
-        elif self.game_state == 'draw':
-            self.text_surf = main_font.render("Ihh deu Velha! Aperte espaco para reiniciar!", False, '#031c29')
-            self.text_rect = self.text_surf.get_rect(center = (400, 50))
-            screen.blit(self.text_surf, self.text_rect)
-        elif self.game_state == 'X':
-            self.text_surf = main_font.render("X VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
-            self.text_rect = self.text_surf.get_rect(center = (400, 50))
-            screen.blit(self.text_surf, self.text_rect)
+        # if self.game_state == 'Xturn':
+        #     self.text_surf = main_font.render("Vez do jogador X", False, '#031c29')
+        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
+        #     screen.blit(self.text_surf, self.text_rect)
+        # elif self.game_state == 'Oturn':
+        #     self.text_surf = main_font.render("Vez do jogador O", False, '#031c29')
+        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
+        #     screen.blit(self.text_surf, self.text_rect)
+        # elif self.game_state == 'draw':
+        #     self.text_surf = main_font.render("Ihh deu Velha! Aperte espaco para reiniciar!", False, '#031c29')
+        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
+        #     screen.blit(self.text_surf, self.text_rect)
+        # elif self.game_state == 'X':
+        #     self.text_surf = main_font.render("X VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
+        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
+        #     screen.blit(self.text_surf, self.text_rect)
+        # elif self.game_state == 'O':
+        #     self.text_surf = main_font.render("O VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
+        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
+        #     screen.blit(self.text_surf, self.text_rect)
+
+        main_text = ""
+        match self.game_state:
+            case "Xturn":
+                main_text = "Vez do jogador X"
+        match self.game_state:
+            case "Oturn":
+                main_text = "Vez do jogador O"
+        match self.game_state:
+            case "draw":
+                main_text = "Ihh deu Velha! Aperte espaco para reiniciar!"
+        match self.game_state:
+            case "X":
+                main_text = "X VENCEU! Aperte espaco para reiniciar!"
+        match self.game_state:
+            case "O":
+                main_text = "O VENCEU! Aperte espaco para reiniciar!"
+        
+        self.text_surf = main_font.render(main_text, False, '#031c29')
+        self.text_rect = self.text_surf.get_rect(center = (400, 50))
+        screen.blit(self.text_surf, self.text_rect)
             
-        elif self.game_state == 'O':
-            self.text_surf = main_font.render("O VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
-            self.text_rect = self.text_surf.get_rect(center = (400, 50))
-            
-            screen.blit(self.text_surf, self.text_rect)
         for i in range(9):
             x = i // 3
             y = i % 3
