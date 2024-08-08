@@ -24,7 +24,6 @@ class Board:
                 y = i % 3
                 if self.grid_rect_list[i].collidepoint(mouse_pos):
                     if not self.grid[x][y]:
-                        print (x_turn)
                         if x_turn:
                             self.grid[x][y] = 'X'
                             self.turns += 1
@@ -43,27 +42,7 @@ class Board:
         return x_turn
                             
     def displayMoves(self):
-        # if self.game_state == 'Xturn':
-        #     self.text_surf = main_font.render("Vez do jogador X", False, '#031c29')
-        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
-        #     screen.blit(self.text_surf, self.text_rect)
-        # elif self.game_state == 'Oturn':
-        #     self.text_surf = main_font.render("Vez do jogador O", False, '#031c29')
-        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
-        #     screen.blit(self.text_surf, self.text_rect)
-        # elif self.game_state == 'draw':
-        #     self.text_surf = main_font.render("Ihh deu Velha! Aperte espaco para reiniciar!", False, '#031c29')
-        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
-        #     screen.blit(self.text_surf, self.text_rect)
-        # elif self.game_state == 'X':
-        #     self.text_surf = main_font.render("X VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
-        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
-        #     screen.blit(self.text_surf, self.text_rect)
-        # elif self.game_state == 'O':
-        #     self.text_surf = main_font.render("O VENCEU! Aperte espaco para reiniciar!", False, '#031c29')
-        #     self.text_rect = self.text_surf.get_rect(center = (400, 50))
-        #     screen.blit(self.text_surf, self.text_rect)
-
+ 
         main_text = ""
         match self.game_state:
             case "Xturn":
@@ -162,11 +141,9 @@ bg_music.set_volume(0.3)
 victory_sound.set_volume(0.5)
 bg_music.play(-1)
 
-
 #game logic
 game_active = True
 x_turn = True
-
 
 while True:
     for event in pygame.event.get():
@@ -193,7 +170,6 @@ while True:
         board.displayMoves()
         vict = board.checkWin()
         if vict:
-            print(vict)
             victory_sound.play()
             game_active = False
     else:
