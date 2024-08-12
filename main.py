@@ -73,41 +73,33 @@ class Board:
                 screen.blit(playerO_surf, (200 + 150 * x, 100 + 150 * y))
     
     def checkWin(self):
-        checkLine1 = self.grid[0][0]
-        checkLine2 = self.grid[1][1]
-        checkLine3 = self.grid[2][2]
-        
-        if checkLine1:
-            if checkLine1 == self.grid[0][1] == self.grid[0][2]:
-                self.game_state = checkLine1
-                return checkLine1
-            elif checkLine1 == self.grid[1][0] == self.grid[2][0]:
-                self.game_state = checkLine1
-                return checkLine1
-        if checkLine2:
-            if checkLine2 == self.grid[1][0] == self.grid[1][2]:
-                self.game_state = checkLine2
-                return checkLine2
-            elif checkLine2 == self.grid[0][1] == self.grid[2][1]:
-                self.game_state = checkLine2
-                return checkLine2
-        if checkLine3:
-            if checkLine3 == self.grid[2][0] == self.grid[2][1]:
-                self.game_state = checkLine3
-                return checkLine3
-            elif checkLine3 == self.grid[0][2] == self.grid[1][2]:
-                self.game_state = checkLine3
-                return checkLine3
-        if checkLine2:
-            if checkLine1 == checkLine2 == checkLine3:
-                self.game_state = checkLine1
-                return checkLine1
-            elif checkLine2 == self.grid[0][2] == self.grid[2][0]:
-                self.game_state = checkLine2
-                return checkLine2
+
+        diagonal1 = set()
+        diagonal2 = set()
+        for i in range(len(self.grid)):
+            if len(set(self.grid[i])) == 1 and self.grid[i][0]:
+                self.game_state = self.grid[i][0]
+                return self.grid[i][0]
+            column = set()
+            r = -i - 1
+            diagonal1.add(self.grid[i][i])
+            diagonal2.add(self.grid[i][r])
+            for j in range(len(self.grid)):
+                column.add(self.grid[j][i])
+            if len(column) == 1 and self.grid[j][i]:
+                self.game_state = self.grid[j][i]
+                return self.grid[j][i]
+        if len(diagonal1) == 1 and self.grid[i][i]:
+            self.game_state = self.grid[i][i]
+            return self.grid[i][i]
+        if len(diagonal2) == 1 and self.grid[i][r]:
+            self.game_state = self.grid[i][r]
+            return self.grid[i][r]
+    
         if self.turns >= 9:
             self.game_state = 'draw'
-            return 'draw'    
+            return 'draw'   
+         
         return None
         
 #initializing pygame and window
